@@ -1,24 +1,22 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿namespace G26W12WPFControls;
 
-namespace G26W12WPFControls
+public record Song(string Title, string Singer, string Genre);
+
+public class SongModel
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public static readonly string[] GENRES = ["발라드", "힙합", "트로트", "댄스", "팝", "기타"];
+
+    private readonly List<Song> _songs = [];
+    public List<Song> Songs => _songs;
+
+    public Song? AddSong(string title, string singer, string genre)
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        if (string.IsNullOrWhiteSpace(title) || string.IsNullOrWhiteSpace(singer))
+            return null;
+
+        Song song = new(title.Trim(), singer.Trim(), genre);
+        _songs.Add(song);
+
+        return song;
     }
 }
